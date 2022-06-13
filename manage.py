@@ -1,22 +1,20 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
-import os
-import sys
+#create the dictionary
+dictionary = { 'D' : '(D)' , 'A' : 'mnm' }
 
+#open the text file in read only mode
+text_file = open("Ecoli.txt", "r")
 
-def main():
-    """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WEBB.settings')
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
-    execute_from_command_line(sys.argv)
+#To open a modified text file
+modified_text_file = open("modified_text_file.txt", "w")
 
+for x in text_file:
+        if x[0] != ">":   #To skip every line that starts with '>' in the text file
+         for key in dictionary:
+                x = x.replace(key, dictionary[key])  #To perform the replacement using the values of the created dictionary
+         modified_text_file.write(x)
+        else:
+            modified_text_file.write(x)
 
-if __name__ == '__main__':
-    main()
+modified_text_file.close()
+text_file.close()
+
